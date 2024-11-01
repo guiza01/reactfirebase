@@ -9,6 +9,12 @@
   margin: 0 auto; /* Centraliza a container na tela */
 }
 
+.form-container {
+  display: flex;
+  justify-content: space-between; /* Espaçamento entre o formulário e a visualização */
+  width: 100%; /* Garante que a largura ocupe 100% */
+}
+
 .form-row {
   display: flex;
   flex-wrap: nowrap; /* Mantém tudo em uma linha */
@@ -92,4 +98,32 @@ button {
   cursor: pointer;
   border-radius: 4px;
   margin-top: 15px;
+}
+
+/* Estilos para a div de visualização */
+.preview-container {
+  border: 1px solid #ccc; /* Borda para separar visualmente */
+  border-radius: 8px; /* Bordas arredondadas */
+  padding: 16px; /* Espaçamento interno */
+  width: 300px; /* Largura fixa da visualização */
+  margin-left: 20px; /* Espaço entre o formulário e a visualização */
+  display: flex; /* Flexbox para organizar os conteúdos */
+  flex-direction: column; /* Colunas para o texto */
+}
+
+.preview-container h3 {
+  margin-top: 0; /* Remove margem superior do título */
+}
+
+.preview-container img {
+  width: 100px; /* Ajusta a largura da imagem */
+  height: 100px; /* Ajusta a altura da imagem */
+  border-radius: 50%; /* Torna a imagem redonda */
+  margin-top: 10px; /* Espaçamento acima da imagem */
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: space-between; /* Espaçamento entre os botões */
+  margin-top: 20px; /* Espaçamento superior */
 }
