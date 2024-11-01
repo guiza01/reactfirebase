@@ -1,0 +1,95 @@
+.container {
+  width: 100%;
+  max-width: 800px; /* Largura máxima */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start; /* Alinhamento à esquerda para os campos */
+  margin: 0 auto; /* Centraliza a container na tela */
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: nowrap; /* Mantém tudo em uma linha */
+  gap: 20px; /* Espaço entre os grupos de formulário */
+  margin-bottom: 15px;
+  align-items: flex-start; /* Alinha todos os elementos na parte superior */
+}
+
+.form-column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.foto-perfil {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 120px; /* Largura fixa para a foto de perfil */
+  border: 1px dashed #ccc; /* Bordas do esboço */
+  border-radius: 5px; /* Borda arredondada */
+  padding: 10px; /* Espaçamento interno */
+}
+
+.foto-input {
+  display: none; /* Esconde o input de arquivo */
+}
+
+.foto-label {
+  cursor: pointer;
+}
+
+.foto-icon {
+  width: 50px; /* Ajuste o tamanho do ícone conforme necessário */
+  height: 50px; /* Ajuste o tamanho do ícone conforme necessário */
+  color: #ccc; /* Cor do ícone */
+}
+
+.foto-preview {
+  width: 90px;
+  height: 120px; /* Ajustado para melhor proporção */
+  object-fit: cover; 
+  border-radius: 5px;
+  margin-top: 10px; /* Espaço entre o botão e a pré-visualização */
+}
+
+.foto-button {
+  padding: 8px 12px; /* Estilo do botão de adicionar foto */
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px; /* Espaçamento acima do botão */
+  text-align: center;
+}
+
+.example-text {
+  font-size: 0.85rem;
+  color: #888;
+  margin-top: 5px;
+  text-align: center;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="date"] {
+  padding: 10px;
+  width: 100%; /* Faz com que os inputs ocupem toda a largura do grupo */
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  padding: 10px 15px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-top: 15px;
+}
