@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { db } from './firebase';
 import { collection, addDoc, doc, updateDoc, getDoc } from 'firebase/firestore';
+import { useParams } from 'react-router-dom';
 
-function AtualizarFuncionario({ funcionarioId }) {
+function AtualizarFuncionario() {
+  const { funcionarioId } = useParams();
   const [formData, setFormData] = useState({
     demitido: false,
     cargo: '',
@@ -27,11 +29,11 @@ function AtualizarFuncionario({ funcionarioId }) {
 
   useEffect(() => {
     const carregarDadosFuncionario = async () => {
-      console.log("ID do funcionário:", funcionarioId); 
+      console.log("ID do funcionário:", funcionarioId);
       if (funcionarioId) {
         const funcionarioRef = doc(db, 'funcionario', funcionarioId);
         const funcionarioSnap = await getDoc(funcionarioRef);
-        
+
         if (funcionarioSnap.exists()) {
           setFormData(funcionarioSnap.data());
         } else {
@@ -39,15 +41,13 @@ function AtualizarFuncionario({ funcionarioId }) {
         }
       }
     };
-  
+
     carregarDadosFuncionario();
   }, [funcionarioId]);
-  
+
   if (!funcionarioId) {
     return <div>Carregando dados do funcionário...</div>;
   }
-  
-  
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -65,6 +65,7 @@ function AtualizarFuncionario({ funcionarioId }) {
         await addDoc(collection(db, 'funcionario'), formData);
         alert('Funcionário cadastrado com sucesso!');
       }
+
       setFormData({
         demitido: false,
         cargo: '',

@@ -51,7 +51,7 @@ function App() {
           <Route path="/" element={usuario ? <Navigate to="/funcionarios" /> : <Navigate to="/login" />} />
           <Route path="/funcionarios" element={usuario ? <ListarFuncionario /> : <Navigate to="/login" />} />
           <Route path="/funcionarios/cadastrar" element={usuario ? <CadastroFuncionario /> : <Navigate to="/login" />} />
-          <Route path="/funcionarios/atualizar/:id" element={usuario ? <AtualizarFuncionario /> : <Navigate to="/login" />} />
+          <Route path="/funcionarios/atualizar/:funcionarioId" element={usuario ? <AtualizarFuncionario /> : <Navigate to="/login" />} />
           <Route path="/funcionarios/historico/:id" element={usuario ? <HistoricoFuncionario /> : <Navigate to="/login" />} />
         </Routes>
       </div>
