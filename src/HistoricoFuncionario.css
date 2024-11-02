@@ -1,0 +1,70 @@
+/* HistoricoFuncionario.css */
+
+.container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    background-color: #fff;
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 4px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+strong {
+    color: #333;
+}
+
+p {
+    margin: 5px 0;
+}
+
+/* Exemplo de estilos CSS */
+.container {
+    width: 100%;
+    /* Garante que o container use toda a largura disponível */
+    max-width: 1400px;
+    /* Limita a largura máxima do formulário */
+    margin: 0 auto;
+    /* Centraliza o container */
+    padding: 20px;
+    /* Adiciona algum espaçamento */
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    /* Faz os campos ocuparem 100% da largura do container */
+    max-width: 400px;
+    /* Define uma largura máxima para evitar que sejam muito largos */
+    margin-bottom: 15px;
+    /* Adiciona espaço entre os campos */
+    padding: 10px;
+    /* Adiciona preenchimento interno aos campos */
+    border: 1px solid #ccc;
+    /* Estilo de borda padrão */
+    border-radius: 4px;
+    /* Bordas arredondadas */
+}
+
+button {
+    padding: 10px 15px;
+    /* Espaçamento do botão */
+    font-size: 16px;
+    /* Tamanho da fonte do botão */
+}

@@ -3,6 +3,8 @@ import { db } from './firebase';
 import { useNavigate } from 'react-router-dom';
 import { collection, addDoc, doc, updateDoc, getDoc } from 'firebase/firestore';
 import { useParams } from 'react-router-dom';
+import './AtualizarFuncionario.css';
+
 
 function AtualizarFuncionario() {
   const { funcionarioId } = useParams();

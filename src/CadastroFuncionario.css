@@ -3,6 +3,9 @@
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  max-width: 90%;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .navbar {
@@ -18,6 +21,7 @@
   display: flex;
   width: 100%;
   margin-top: 20px;
+  max-width: 1900px;
 }
 
 .form-section {
@@ -49,3 +53,38 @@
   background-color: #4caf50;
   border-radius: 5px;
 }
+
+.form-section div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.form-section label {
+  flex: 1;
+  margin-right: 10px;
+  text-align: left;
+}
+
+.form-section input,
+.form-section select,
+.form-section textarea {
+  flex: 2;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box; 
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between; 
+}
+
+.button-container button {
+  padding: 10px 15px;
+  font-size: 16px;
+}
+

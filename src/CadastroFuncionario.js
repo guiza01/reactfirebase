@@ -99,8 +99,6 @@ function CadastroFuncionario() {
 
   return (
     <div className="container">
-      <div className="navbar">Navbar</div>
-
       <div className="main-content">
         <div className="form-section">
           <h2>Cadastro de Funcionário</h2>
@@ -124,7 +122,10 @@ function CadastroFuncionario() {
                   </select>
                 </div>
                 <div><label>Data de Nascimento:</label><input type="date" name="dataNascimento" value={formData.dataNascimento} onChange={handleChange} required /></div>
-                <button type="button" onClick={nextStep}>Próximo</button>
+
+                <div className="button-container">
+                  <button type="button" onClick={nextStep}>Próximo</button>
+                </div>
               </>
             )}
 
@@ -139,8 +140,11 @@ function CadastroFuncionario() {
                 <div><label>Email:</label><input type="email" name="email" value={formData.email} onChange={handleChange} required /></div>
                 <div><label>Telefone:</label><input type="tel" name="telefone" value={formData.telefone} onChange={handleChange} required /></div>
                 <div><label>Salário:</label><input type="number" name="salario" value={formData.salario} onChange={handleChange} required /></div>
-                <button type="button" onClick={prevStep}>Anterior</button>
-                <button type="button" onClick={nextStep}>Próximo</button>
+
+                <div className="button-container">
+                  <button type="button" onClick={prevStep}>Anterior</button>
+                  <button type="button" onClick={nextStep}>Próximo</button>
+                </div>
               </>
             )}
 
@@ -153,37 +157,58 @@ function CadastroFuncionario() {
                 <div><label>Idiomas:</label><input type="text" name="idiomas" value={formData.idiomas} onChange={handleChange} required /></div>
                 <div><label>Resumo Pessoal:</label><textarea name="resumoPessoal" value={formData.resumoPessoal} onChange={handleChange} required /></div>
                 <div><label>Demitido:</label><input type="checkbox" name="demitido" checked={formData.demitido} onChange={(e) => setFormData({ ...formData, demitido: e.target.checked })} /></div>
-                <button type="button" onClick={prevStep}>Anterior</button>
-                <button type="submit">Finalizar</button>
+
+                <div className="button-container">
+                  <button type="button" onClick={prevStep}>Anterior</button>
+                  <button type="submit">Finalizar</button>
+                </div>
               </>
             )}
           </form>
+
         </div>
 
-        <div className="preview-section" ref={folhaRef}>
-          <h3>Pré-visualização (Folha A4)</h3>
+        <div className="preview-section" ref={folhaRef} style={{ padding: '20px', fontFamily: 'Arial, sans-serif', lineHeight: '1.6' }}>
           <div className="preview-content">
-            <p><strong>Nome:</strong> {formData.nome} {formData.sobrenome}</p>
-            <p><strong>CPF:</strong> {formData.cpf}</p>
-            <p><strong>Data de Nascimento:</strong> {formData.dataNascimento}</p>
-            <p><strong>Foto de Perfil:</strong> {formData.fotoPerfil}</p>
-            <p><strong>Sexo:</strong> {formData.sexo}</p>
-            <p><strong>Data de Admissão:</strong> {formData.dataAdmissao}</p>
-            <p><strong>Cargo:</strong> {formData.cargo}</p>
-            <p><strong>Setor:</strong> {formData.setor}</p>
-            <p><strong>Salário:</strong> {formData.salario}</p>
-            <p><strong>Endereço:</strong> {formData.endereco}</p>
-            <p><strong>Email:</strong> {formData.email}</p>
-            <p><strong>Telefone:</strong> {formData.telefone}</p>
-            <p><strong>Educação:</strong> {formData.educacao}</p>
-            <p><strong>Experiência:</strong> {formData.experiencia}</p>
-            <p><strong>Habilidades:</strong> {formData.habilidades}</p>
-            <p><strong>Idiomas:</strong> {formData.idiomas}</p>
-            <p><strong>Resumo Pessoal:</strong> {formData.resumoPessoal}</p>
-            <p><strong>Demitido:</strong> {formData.demitido ? 'Sim' : 'Não'}</p>
+            <div style={{ borderBottom: '2px solid #000', marginBottom: '15px' }}>
+              <h4 style={{ margin: '10px 0' }}>Informações Pessoais</h4>
+              <p><strong>Nome:</strong> {formData.nome} {formData.sobrenome}</p>
+              <p><strong>CPF:</strong> {formData.cpf}</p>
+              <p><strong>Data de Nascimento:</strong> {formData.dataNascimento}</p>
+              <p><strong>Sexo:</strong> {formData.sexo}</p>
+              <p><strong>Foto de Perfil:</strong> {formData.fotoPerfil}</p>
+            </div>
+
+            <div style={{ borderBottom: '2px solid #000', marginBottom: '15px' }}>
+              <h4 style={{ margin: '10px 0' }}>Informações Profissionais</h4>
+              <p><strong>Data de Admissão:</strong> {formData.dataAdmissao}</p>
+              <p><strong>Cargo:</strong> {formData.cargo}</p>
+              <p><strong>Setor:</strong> {formData.setor}</p>
+              <p><strong>Salário:</strong> {formData.salario}</p>
+            </div>
+
+            <div style={{ borderBottom: '2px solid #000', marginBottom: '15px' }}>
+              <h4 style={{ margin: '10px 0' }}>Contatos</h4>
+              <p><strong>Endereço:</strong> {formData.endereco}</p>
+              <p><strong>Email:</strong> {formData.email}</p>
+              <p><strong>Telefone:</strong> {formData.telefone}</p>
+            </div>
+
+            <div style={{ borderBottom: '2px solid #000', marginBottom: '15px' }}>
+              <h4 style={{ margin: '10px 0' }}>Educação</h4>
+              <p><strong>Educação:</strong> {formData.educacao}</p>
+            </div>
+
+            <div style={{ borderBottom: '2px solid #000', marginBottom: '15px' }}>
+              <h4 style={{ margin: '10px 0' }}>Experiência</h4>
+              <p><strong>Experiência:</strong> {formData.experiencia}</p>
+              <p><strong>Habilidades:</strong> {formData.habilidades}</p>
+              <p><strong>Idiomas:</strong> {formData.idiomas}</p>
+            </div>
           </div>
-          <button onClick={exportPDF} style={{ marginTop: '15px' }}>Exportar PDF</button>
+          <button onClick={exportPDF} style={{ marginTop: '15px', padding: '10px 20px', fontSize: '16px' }}>Baixar ficha em PDF</button>
         </div>
+
 
       </div>
     </div >

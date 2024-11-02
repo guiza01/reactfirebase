@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { db } from './firebase';
 import { useParams } from 'react-router-dom';
 import { collection, query, where, getDocs } from 'firebase/firestore';
+import './HistoricoFuncionario.css';
 
 function HistoricoFuncionario() {
   const { funcionarioId } = useParams();
