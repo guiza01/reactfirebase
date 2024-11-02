@@ -7,19 +7,19 @@ const Navbar = () => {
     <nav className="navbar">
       <ul>
         <li>
-          <Link to="/">Cadastrar usuario</Link>
+          <Link to="/">Home</Link>
         </li>
         <li>
-          <Link to="/sobre">Listar funcionarios</Link>
+          <Link to="/cadastro-funcionario">Cadastrar funcionario</Link>
         </li>
         <li>
-          <Link to="/sobre">Listar funcionarios demitidos</Link>
+          <Link to="/funcionarios">Funcionarios</Link>
         </li>
         <li>
-          <Link to="/sobre">Sobre</Link>
+          <Link to="/sobre">Funcionarios demitidos</Link>
         </li>
         <li>
-          <Link to="/contato">Contato</Link>
+          <Link to="/contato">Ficha do funcionario</Link>
         </li>
         {/* Adicione mais links conforme necessário */}
       </ul>
