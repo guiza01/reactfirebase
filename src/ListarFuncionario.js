@@ -14,11 +14,13 @@ function ListarFuncionario() {
     buscarFuncionarios();
   }, []);
 
+  const funcionariosAtivos = funcionarios.filter(funcionario => !funcionario.demitido);
+
   return (
     <div>
       <h2>Todos os funcionários</h2>
       <ul>
-        {funcionarios.map((funcionario) => (
+        {funcionariosAtivos.map((funcionario) => (
           <li key={funcionario.id}>
             {funcionario.nome} - {funcionario.cargo}
             <Link to={`/funcionarios/atualizar/${funcionario.id}`}> Atualizar</Link> |{' '}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { db } from './firebase';
+import { useNavigate } from 'react-router-dom';
 import { collection, addDoc, doc, updateDoc, getDoc } from 'firebase/firestore';
 import { useParams } from 'react-router-dom';
 
@@ -8,6 +9,7 @@ function AtualizarFuncionario() {
   const [formData, setFormData] = useState({
     demitido: false,
     cargo: '',
+    cpf: '',
     dataAdmissao: '',
     dataNascimento: '',
     educacao: '',
@@ -26,10 +28,10 @@ function AtualizarFuncionario() {
     sobrenome: '',
     telefone: '',
   });
-
+  const navigate = useNavigate();
+  
   useEffect(() => {
     const carregarDadosFuncionario = async () => {
-      console.log("ID do funcionário:", funcionarioId);
       if (funcionarioId) {
         const funcionarioRef = doc(db, 'funcionario', funcionarioId);
         const funcionarioSnap = await getDoc(funcionarioRef);
@@ -57,18 +59,28 @@ function AtualizarFuncionario() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if (funcionarioId) {
-        const funcionarioRef = doc(db, 'funcionario', funcionarioId);
-        await updateDoc(funcionarioRef, formData);
-        alert('Funcionário atualizado com sucesso!');
-      } else {
-        await addDoc(collection(db, 'funcionario'), formData);
-        alert('Funcionário cadastrado com sucesso!');
-      }
-
+      const funcionarioRef = doc(db, 'funcionario', funcionarioId);
+      
+      const funcionarioSnap = await getDoc(funcionarioRef);
+      const dadosAntigos = funcionarioSnap.data();
+  
+      await updateDoc(funcionarioRef, formData);
+  
+      const historicoData = {
+        funcionarioId: funcionarioRef.id,
+        dadosAntigos: dadosAntigos,
+        dadosNovos: formData,
+        dataHora: new Date(),
+      };
+      await addDoc(collection(db, 'historico'), historicoData);
+      
+      alert('Funcionário atualizado com sucesso!');
+      navigate('/funcionarios');
+      
       setFormData({
         demitido: false,
         cargo: '',
+        cpf: '',
         dataAdmissao: '',
         dataNascimento: '',
         educacao: '',
@@ -88,7 +100,7 @@ function AtualizarFuncionario() {
         telefone: '',
       });
     } catch (error) {
-      alert('Erro ao cadastrar/atualizar funcionário: ' + error.message);
+      alert('Erro ao atualizar funcionário: ' + error.message);
     }
   };
 
@@ -108,6 +120,10 @@ function AtualizarFuncionario() {
         <div>
           <label>Sobrenome:</label>
           <input type="text" name="sobrenome" value={formData.sobrenome} onChange={handleChange} required />
+        </div>
+        <div>
+          <label>CPF:</label>
+          <input type="text" name="cpf" value={formData.cpf} onChange={handleChange} required />
         </div>
         <div>
           <label>Sexo:</label>

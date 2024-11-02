@@ -32,7 +32,7 @@ function App() {
                     <Link className="nav-link" to="/funcionarios/cadastrar">Cadastrar Funcionário</Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to="/funcionarios/historico">Fichas dos funcionarios</Link>
+                    <Link className="nav-link" to="/funcionarios/fichas">Fichas dos funcionarios</Link>
                   </li>
                   
                 </>
@@ -52,7 +52,7 @@ function App() {
           <Route path="/funcionarios" element={usuario ? <ListarFuncionario /> : <Navigate to="/login" />} />
           <Route path="/funcionarios/cadastrar" element={usuario ? <CadastroFuncionario /> : <Navigate to="/login" />} />
           <Route path="/funcionarios/atualizar/:funcionarioId" element={usuario ? <AtualizarFuncionario /> : <Navigate to="/login" />} />
-          <Route path="/funcionarios/historico/:id" element={usuario ? <HistoricoFuncionario /> : <Navigate to="/login" />} />
+          <Route path="/funcionarios/historico/:funcionarioId" element={usuario ? <HistoricoFuncionario /> : <Navigate to="/login" />} />
         </Routes>
       </div>
     </Router>
