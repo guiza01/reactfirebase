@@ -101,7 +101,7 @@ function CadastroFuncionario() {
     <div className="container">
       <div className="main-content">
         <div className="form-section">
-          <h2>Cadastro de Funcionário</h2>
+          <h3>Cadastro de Funcionário</h3>
           <div className="progress-bar">
             <div className="progress" style={{ width: `${progressPercentage}%` }} />
           </div>
@@ -109,11 +109,24 @@ function CadastroFuncionario() {
             {step === 0 && (
               <>
                 <h3>Informações Pessoais</h3>
-                <div><label>Nome:</label><input type="text" name="nome" value={formData.nome} onChange={handleChange} required /></div>
-                <div><label>Sobrenome:</label><input type="text" name="sobrenome" value={formData.sobrenome} onChange={handleChange} required /></div>
-                <div><label>Foto de Perfil:</label><input type="text" name="fotoPerfil" value={formData.fotoPerfil} onChange={handleChange} /></div>
-                <div><label>CPF:</label><input type="text" name="cpf" value={formData.cpf} onChange={handleChange} required /></div>
-                <div><label>Sexo:</label>
+                <div>
+                  <label>Nome</label>
+                  <input type="text" name="nome" value={formData.nome} onChange={handleChange} placeholder="ex. Fernando" required />
+                </div>
+                <div>
+                  <label>Sobrenome</label>
+                  <input type="text" name="sobrenome" value={formData.sobrenome} onChange={handleChange} placeholder="ex. Souza" required />
+                </div>
+                <div>
+                  <label>Foto de Perfil</label>
+                  <input type="text" name="fotoPerfil" value={formData.fotoPerfil} onChange={handleChange} placeholder="URL da Foto" />
+                </div>
+                <div>
+                  <label>CPF</label>
+                  <input type="text" name="cpf" value={formData.cpf} onChange={handleChange} placeholder="ex. 123.456.789-00" required />
+                </div>
+                <div>
+                  <label>Sexo</label>
                   <select name="sexo" value={formData.sexo} onChange={handleChange} required>
                     <option value="">Selecione</option>
                     <option value="masculino">Masculino</option>
@@ -121,10 +134,12 @@ function CadastroFuncionario() {
                     <option value="outro">Outro</option>
                   </select>
                 </div>
-                <div><label>Data de Nascimento:</label><input type="date" name="dataNascimento" value={formData.dataNascimento} onChange={handleChange} required /></div>
-
+                <div>
+                  <label>Data de Nascimento</label>
+                  <input type="date" name="dataNascimento" value={formData.dataNascimento} onChange={handleChange} required />
+                </div>
                 <div className="button-container">
-                  <button type="button" onClick={nextStep}>Próximo</button>
+                  <button type="button" onClick={nextStep} style={{ float: 'right' }}>Próximo</button>
                 </div>
               </>
             )}
@@ -132,18 +147,41 @@ function CadastroFuncionario() {
             {step === 1 && (
               <>
                 <h3>Dados de Admissão</h3>
-                <div><label>Data de Admissão:</label><input type="date" name="dataAdmissao" value={formData.dataAdmissao} onChange={handleChange} required /></div>
-                <div><label>Cargo:</label><input type="text" name="cargo" value={formData.cargo} onChange={handleChange} required /></div>
-                <div><label>Setor:</label><input type="text" name="setor" value={formData.setor} onChange={handleChange} required /></div>
-                <div><label>Nacionalidade:</label><input type="text" name="nacionalidade" value={formData.nacionalidade} onChange={handleChange} required /></div>
-                <div><label>Endereço:</label><input type="text" name="endereco" value={formData.endereco} onChange={handleChange} required /></div>
-                <div><label>Email:</label><input type="email" name="email" value={formData.email} onChange={handleChange} required /></div>
-                <div><label>Telefone:</label><input type="tel" name="telefone" value={formData.telefone} onChange={handleChange} required /></div>
-                <div><label>Salário:</label><input type="number" name="salario" value={formData.salario} onChange={handleChange} required /></div>
-
+                <div>
+                  <label>Data de Admissão</label>
+                  <input type="date" name="dataAdmissao" value={formData.dataAdmissao} onChange={handleChange} required />
+                </div>
+                <div>
+                  <label>Cargo</label>
+                  <input type="text" name="cargo" value={formData.cargo} onChange={handleChange} placeholder="ex. Vendedor" required />
+                </div>
+                <div>
+                  <label>Setor</label>
+                  <input type="text" name="setor" value={formData.setor} onChange={handleChange} placeholder="ex. Atendimento" required />
+                </div>
+                <div>
+                  <label>Nacionalidade</label>
+                  <input type="text" name="nacionalidade" value={formData.nacionalidade} onChange={handleChange} placeholder="ex. Brasileiro" required />
+                </div>
+                <div>
+                  <label>Endereço</label>
+                  <input type="text" name="endereco" value={formData.endereco} onChange={handleChange} placeholder="ex. Avenida Paulista, 1234" required />
+                </div>
+                <div>
+                  <label>Email</label>
+                  <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="ex. tiago.souza@email.com" required />
+                </div>
+                <div>
+                  <label>Telefone</label>
+                  <input type="tel" name="telefone" value={formData.telefone} onChange={handleChange} placeholder="ex. (11) 91234-5678" required />
+                </div>
+                <div>
+                  <label>Salário</label>
+                  <input type="number" name="salario" value={formData.salario} onChange={handleChange} placeholder="ex. 2500" required />
+                </div>
                 <div className="button-container">
-                  <button type="button" onClick={prevStep}>Anterior</button>
-                  <button type="button" onClick={nextStep}>Próximo</button>
+                  <button type="button" onClick={prevStep} style={{ float: 'left' }}>Anterior</button>
+                  <button type="button" onClick={nextStep} style={{ float: 'right' }}>Próximo</button>
                 </div>
               </>
             )}
@@ -151,67 +189,36 @@ function CadastroFuncionario() {
             {step === 2 && (
               <>
                 <h3>Informações Adicionais</h3>
-                <div><label>Educação:</label><input type="text" name="educacao" value={formData.educacao} onChange={handleChange} required /></div>
-                <div><label>Experiência:</label><input type="text" name="experiencia" value={formData.experiencia} onChange={handleChange} required /></div>
-                <div><label>Habilidades:</label><input type="text" name="habilidades" value={formData.habilidades} onChange={handleChange} required /></div>
-                <div><label>Idiomas:</label><input type="text" name="idiomas" value={formData.idiomas} onChange={handleChange} required /></div>
-                <div><label>Resumo Pessoal:</label><textarea name="resumoPessoal" value={formData.resumoPessoal} onChange={handleChange} required /></div>
-                <div><label>Demitido:</label><input type="checkbox" name="demitido" checked={formData.demitido} onChange={(e) => setFormData({ ...formData, demitido: e.target.checked })} /></div>
-
+                <div>
+                  <label>Educação</label>
+                  <input type="text" name="educacao" value={formData.educacao} onChange={handleChange} placeholder="ex. Merchandising de Moda" required />
+                </div>
+                <div>
+                  <label>Experiência</label>
+                  <input type="text" name="experiencia" value={formData.experiencia} onChange={handleChange} placeholder="ex. Vendedor na Louis Vuitton" required />
+                </div>
+                <div>
+                  <label>Habilidades</label>
+                  <input type="text" name="habilidades" value={formData.habilidades} onChange={handleChange} placeholder="ex. Atendimento ao Cliente" required />
+                </div>
+                <div>
+                  <label>Idiomas</label>
+                  <input type="text" name="idiomas" value={formData.idiomas} onChange={handleChange} placeholder="ex. Francês Avançado" required />
+                </div>
+                <div>
+                  <label>Resumo Pessoal</label>
+                  <textarea name="resumoPessoal" value={formData.resumoPessoal} onChange={handleChange} placeholder="Descreva seu perfil e realizações" required />
+                </div>
                 <div className="button-container">
-                  <button type="button" onClick={prevStep}>Anterior</button>
-                  <button type="submit">Finalizar</button>
+                  <button type="button" onClick={prevStep} style={{ float: 'left' }}>Anterior</button>
+                  <button type="submit" style={{ float: 'right' }}>Finalizar</button>
                 </div>
               </>
             )}
           </form>
-
         </div>
-
-        <div className="preview-section" ref={folhaRef} style={{ padding: '20px', fontFamily: 'Arial, sans-serif', lineHeight: '1.6' }}>
-          <div className="preview-content">
-            <div style={{ borderBottom: '2px solid #000', marginBottom: '15px' }}>
-              <h4 style={{ margin: '10px 0' }}>Informações Pessoais</h4>
-              <p><strong>Nome:</strong> {formData.nome} {formData.sobrenome}</p>
-              <p><strong>CPF:</strong> {formData.cpf}</p>
-              <p><strong>Data de Nascimento:</strong> {formData.dataNascimento}</p>
-              <p><strong>Sexo:</strong> {formData.sexo}</p>
-              <p><strong>Foto de Perfil:</strong> {formData.fotoPerfil}</p>
-            </div>
-
-            <div style={{ borderBottom: '2px solid #000', marginBottom: '15px' }}>
-              <h4 style={{ margin: '10px 0' }}>Informações Profissionais</h4>
-              <p><strong>Data de Admissão:</strong> {formData.dataAdmissao}</p>
-              <p><strong>Cargo:</strong> {formData.cargo}</p>
-              <p><strong>Setor:</strong> {formData.setor}</p>
-              <p><strong>Salário:</strong> {formData.salario}</p>
-            </div>
-
-            <div style={{ borderBottom: '2px solid #000', marginBottom: '15px' }}>
-              <h4 style={{ margin: '10px 0' }}>Contatos</h4>
-              <p><strong>Endereço:</strong> {formData.endereco}</p>
-              <p><strong>Email:</strong> {formData.email}</p>
-              <p><strong>Telefone:</strong> {formData.telefone}</p>
-            </div>
-
-            <div style={{ borderBottom: '2px solid #000', marginBottom: '15px' }}>
-              <h4 style={{ margin: '10px 0' }}>Educação</h4>
-              <p><strong>Educação:</strong> {formData.educacao}</p>
-            </div>
-
-            <div style={{ borderBottom: '2px solid #000', marginBottom: '15px' }}>
-              <h4 style={{ margin: '10px 0' }}>Experiência</h4>
-              <p><strong>Experiência:</strong> {formData.experiencia}</p>
-              <p><strong>Habilidades:</strong> {formData.habilidades}</p>
-              <p><strong>Idiomas:</strong> {formData.idiomas}</p>
-            </div>
-          </div>
-          <button onClick={exportPDF} style={{ marginTop: '15px', padding: '10px 20px', fontSize: '16px' }}>Baixar ficha em PDF</button>
-        </div>
-
-
       </div>
-    </div >
+    </div>
   );
 }
 

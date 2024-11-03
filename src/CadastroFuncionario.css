@@ -6,85 +6,92 @@
   max-width: 90%;
   width: 100%;
   margin: 0 auto;
-}
-
-.navbar {
-  width: 100%;
-  background-color: #333;
-  color: white;
-  padding: 10px;
-  text-align: center;
-  font-size: 18px;
+  font-family: Arial, sans-serif;
 }
 
 .main-content {
   display: flex;
   width: 100%;
-  margin-top: 20px;
-  max-width: 1900px;
+  max-width: 1200px;
 }
 
-.form-section {
+.form-section, .preview-section {
   flex: 1;
-  margin-right: 20px;
+  margin: 10px;
   padding: 20px;
+  background-color: #f4f4f4;
   border: 1px solid #ddd;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-}
-
-.preview-section {
-  flex: 1;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background-color: #f9f9f9;
+  border-radius: 8px;
 }
 
 .progress-bar {
-  height: 5px;
-  background-color: #ddd;
+  height: 6px;
+  background-color: #e0e0e0;
   border-radius: 5px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+  width: 100%; 
 }
 
 .progress {
-  height: 5px;
-  background-color: #4caf50;
+  height: 100%; 
+  background-color: #4a90e2;
   border-radius: 5px;
+  transition: width 0.3s;
+}
+
+.form-section h3 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 15px;
 }
 
 .form-section div {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   margin-bottom: 15px;
 }
 
 .form-section label {
-  flex: 1;
-  margin-right: 10px;
-  text-align: left;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 5px;
 }
 
 .form-section input,
 .form-section select,
 .form-section textarea {
-  flex: 2;
-  padding: 10px;
+  padding: 12px;
   border: 1px solid #ccc;
-  border-radius: 4px;
-  width: 100%;
-  box-sizing: border-box; 
+  border-radius: 6px;
+  font-size: 14px;
+  color: #333;
 }
 
 .button-container {
   display: flex;
-  justify-content: space-between; 
+  justify-content: space-between;
+  margin-top: 20px; 
 }
 
 .button-container button {
-  padding: 10px 15px;
+  padding: 10px 20px;
   font-size: 16px;
+  color: #fff;
+  background-color: #4a90e2;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
+.button-container button:hover {
+  background-color: #357ABD;
+}
+
+.button-container button.previous {
+  background-color: #007bff; /* Azul padrão */
+}
+
+.button-container button.submit {
+  background-color: #28a745; /* Verde padrão */
+}

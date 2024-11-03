@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { db } from './firebase';
 import { useNavigate } from 'react-router-dom';
 import { collection, addDoc, doc, updateDoc, getDoc } from 'firebase/firestore';
+import { getStorage, ref, uploadBytes } from "firebase/storage";
+import jsPDF from "jspdf";
 import { useParams } from 'react-router-dom';
 import './AtualizarFuncionario.css';
 
@@ -31,6 +33,32 @@ function AtualizarFuncionario() {
     telefone: '',
   });
   const navigate = useNavigate();
+
+  const gerarPDF = async () => {
+    const doc = new jsPDF();
+  
+    doc.setFontSize(16);
+    doc.text(`Ficha do Funcionário: ${formData.nome} ${formData.sobrenome}`, 10, 10);
+  
+    doc.setFontSize(12);
+    Object.keys(formData).forEach((key, index) => {
+      doc.text(`${key.charAt(0).toUpperCase() + key.slice(1)}: ${formData[key]}`, 10, 20 + index * 10);
+    });
+  
+    const pdfBlob = doc.output("blob");
+  
+    const storage = getStorage();
+    const pdfRef = ref(storage, `fichasFuncionarios/${funcionarioId}.pdf`);
+  
+    try {
+      await uploadBytes(pdfRef, pdfBlob);
+      alert("PDF gerado e salvo com sucesso no Firebase!");
+    } catch (error) {
+      console.error("Erro ao salvar o PDF:", error);
+      alert("Erro ao salvar o PDF: " + error.message);
+    }
+  };
+  
   
   useEffect(() => {
     const carregarDadosFuncionario = async () => {

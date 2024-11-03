@@ -8,6 +8,7 @@ import CadastroFuncionario from './CadastroFuncionario';
 import ListarFuncionario from './ListarFuncionario'; 
 import AtualizarFuncionario from './AtualizarFuncionario';
 import HistoricoFuncionario from './HistoricoFuncionario';
+import FichaFuncionario from './FichaFuncionario';
 
 function App() {
   const [usuario] = useAuthState(auth);
@@ -53,6 +54,8 @@ function App() {
           <Route path="/funcionarios/cadastrar" element={usuario ? <CadastroFuncionario /> : <Navigate to="/login" />} />
           <Route path="/funcionarios/atualizar/:funcionarioId" element={usuario ? <AtualizarFuncionario /> : <Navigate to="/login" />} />
           <Route path="/funcionarios/historico/:funcionarioId" element={usuario ? <HistoricoFuncionario /> : <Navigate to="/login" />} />
+          <Route path="/funcionarios/fichas/" element={usuario ? <FichaFuncionario /> : <Navigate to="/login" />} />
+          <Route path="/funcionarios/fichas/:funcionarioId" element={usuario ? <FichaFuncionario /> : <Navigate to="/login" />} />
         </Routes>
       </div>
     </Router>
