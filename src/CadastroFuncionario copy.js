@@ -19,7 +19,7 @@ function CadastroFuncionario() {
     email: '',
     endereco: '',
     experiencia: '',
-    fotoPerfil: null, 
+    fotoPerfil: null, // Alterado para null para armazenar o arquivo
     habilidades: '',
     idiomas: '',
     nacionalidade: '',
@@ -39,7 +39,7 @@ function CadastroFuncionario() {
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
     if (type === 'file') {
-      setFormData({ ...formData, [name]: files[0] });
+      setFormData({ ...formData, [name]: files[0] }); // Armazena o arquivo selecionado
     } else {
       setFormData({ ...formData, [name]: value });
     }
@@ -69,7 +69,7 @@ function CadastroFuncionario() {
           email: '',
           endereco: '',
           experiencia: '',
-          fotoPerfil: null,
+          fotoPerfil: null, // Resetando para null
           habilidades: '',
           idiomas: '',
           nacionalidade: '',
@@ -114,11 +114,11 @@ function CadastroFuncionario() {
         </div>
 
         <Button
-          className='botaoHome'
           variant="contained"
           color="primary"
           startIcon={<HomeIcon />}
           onClick={() => navigate('/')}
+          style={{ marginRight: 'auto' }}
         ></Button>
       </header>
 
@@ -150,7 +150,7 @@ function CadastroFuncionario() {
               </div>
               <div className="input-group">
                 <input
-                  type="file" 
+                  type="file" // Campo para enviar arquivo
                   name="fotoPerfil"
                   onChange={handleChange}
                   className="input-field"

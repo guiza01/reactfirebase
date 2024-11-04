@@ -80,7 +80,7 @@ function ListaFuncionarios() {
 
     return (
         <div className="container mt-4">
-            <h2>Lista de Funcionários</h2>
+            <h2>Ficha dos Funcionários</h2>
             {funcionarios.length === 0 ? (
                 <p>Carregando lista de funcionários...</p>
             ) : (
@@ -89,7 +89,7 @@ function ListaFuncionarios() {
                         <tr>
                             <th>Nome</th>
                             <th>Sobrenome</th>
-                            <th>Ação</th>
+                            <th>Baixar Ficha</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -100,8 +100,7 @@ function ListaFuncionarios() {
                                 <td>
                                     <button className="btn btn-primary btn-sm me-2 align-items-center" 
                                     onClick={() => gerarPDF(funcionario)}>
-                                        <DownloadIcon fontSize="small" className="me-1" /> Baixar ficha
-                                    </button>
+                                        <DownloadIcon fontSize="small" className="me-1" /></button>
                                 </td>
                             </tr>
                         ))}

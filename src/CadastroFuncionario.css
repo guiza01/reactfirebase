@@ -14,7 +14,7 @@
 }
 
 .logoTaugor {
-  width: 100px; /* Ajuste o tamanho conforme necessário */
+  width: 100px;
 }
 
 .steps-container {
@@ -38,11 +38,11 @@
   border-radius: 4px;
   font-size: 16px;
   outline: none;
-  background-color: #f9f9f9; /* cor de fundo do campo */
+  background-color: #f9f9f9;
 }
 
 .input-field:focus {
-  border-color: #007bff; /* cor do foco */
+  border-color: #007bff;
 }
 
 .input-label {
@@ -59,11 +59,15 @@
   top: -10px;
   left: 10px;
   font-size: 12px;
-  color: #007bff; /* cor do foco do label */
+  color: #007bff;
 }
 
 .button-container {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
+}
+
+.botaoHome {
+  margin-right: auto;
 }
