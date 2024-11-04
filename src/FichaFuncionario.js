@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { db } from './firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import jsPDF from 'jspdf';
+import DownloadIcon from '@mui/icons-material/Download';
 
 function ListaFuncionarios() {
     const [funcionarios, setFuncionarios] = useState([]);
@@ -78,19 +79,34 @@ function ListaFuncionarios() {
     };
 
     return (
-        <div>
+        <div className="container mt-4">
             <h2>Lista de Funcionários</h2>
             {funcionarios.length === 0 ? (
                 <p>Carregando lista de funcionários...</p>
             ) : (
-                <ul>
-                    {funcionarios.map((funcionario) => (
-                        <li key={funcionario.id}>
-                            <span>{funcionario.nome} {funcionario.sobrenome}</span>
-                            <button onClick={() => gerarPDF(funcionario)}>Baixar ficha</button>
-                        </li>
-                    ))}
-                </ul>
+                <table className="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Sobrenome</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {funcionarios.map((funcionario) => (
+                            <tr key={funcionario.id}>
+                                <td>{funcionario.nome}</td>
+                                <td>{funcionario.sobrenome}</td>
+                                <td>
+                                    <button className="btn btn-primary btn-sm me-2 align-items-center" 
+                                    onClick={() => gerarPDF(funcionario)}>
+                                        <DownloadIcon fontSize="small" className="me-1" /> Baixar ficha
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             )}
         </div>
     );

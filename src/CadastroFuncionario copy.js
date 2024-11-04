@@ -19,7 +19,7 @@ function CadastroFuncionario() {
     email: '',
     endereco: '',
     experiencia: '',
-    fotoPerfil: null, // Alterado para null para armazenar o arquivo
+    fotoPerfil: '',
     habilidades: '',
     idiomas: '',
     nacionalidade: '',
@@ -37,12 +37,8 @@ function CadastroFuncionario() {
   const folhaRef = useRef();
 
   const handleChange = (e) => {
-    const { name, value, type, files } = e.target;
-    if (type === 'file') {
-      setFormData({ ...formData, [name]: files[0] }); // Armazena o arquivo selecionado
-    } else {
-      setFormData({ ...formData, [name]: value });
-    }
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = async (e) => {
@@ -69,7 +65,7 @@ function CadastroFuncionario() {
           email: '',
           endereco: '',
           experiencia: '',
-          fotoPerfil: null, // Resetando para null
+          fotoPerfil: '',
           habilidades: '',
           idiomas: '',
           nacionalidade: '',
@@ -150,8 +146,9 @@ function CadastroFuncionario() {
               </div>
               <div className="input-group">
                 <input
-                  type="file" // Campo para enviar arquivo
+                  type="text"
                   name="fotoPerfil"
+                  value={formData.fotoPerfil}
                   onChange={handleChange}
                   className="input-field"
                 />
@@ -305,7 +302,8 @@ function CadastroFuncionario() {
                 <label className="input-label">Educação</label>
               </div>
               <div className="input-group">
-                <textarea
+                <input
+                  type="text"
                   name="experiencia"
                   value={formData.experiencia}
                   onChange={handleChange}
@@ -315,7 +313,8 @@ function CadastroFuncionario() {
                 <label className="input-label">Experiência</label>
               </div>
               <div className="input-group">
-                <textarea
+                <input
+                  type="text"
                   name="habilidades"
                   value={formData.habilidades}
                   onChange={handleChange}
@@ -325,11 +324,11 @@ function CadastroFuncionario() {
                 <label className="input-label">Habilidades</label>
               </div>
               <div className="input-group">
-                <textarea
+                <input
+                  type="text"
                   name="idiomas"
                   value={formData.idiomas}
                   onChange={handleChange}
-                  required
                   className="input-field"
                 />
                 <label className="input-label">Idiomas</label>
@@ -347,14 +346,24 @@ function CadastroFuncionario() {
             </>
           )}
 
-          <div className="button-group">
-            {step > 0 && <button type="button" onClick={prevStep}>Anterior</button>}
-            {step < totalSteps - 1 ? (
-              <button type="button" onClick={nextStep}>Próximo</button>
-            ) : (
-              <button type="submit">Cadastrar Funcionário</button>
+          <div className="button-container">
+            {step > 0 && (
+              <Button variant="contained" onClick={prevStep}>
+                Voltar
+              </Button>
             )}
-            <button type="button" onClick={exportPDF}>Exportar PDF</button>
+            {step < totalSteps - 1 ? (
+              <Button variant="contained" onClick={nextStep}>
+                Próximo
+              </Button>
+            ) : (
+              <Button type="submit" variant="contained">
+                Cadastrar Funcionário
+              </Button>
+            )}
+            <Button variant="contained" onClick={exportPDF}>
+              Exportar PDF
+            </Button>
           </div>
         </form>
       </div>

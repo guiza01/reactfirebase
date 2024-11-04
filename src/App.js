@@ -15,13 +15,12 @@ function Navbar() {
   const logoUrl = "/logoTaugor.png";
   const [usuario] = useAuthState(auth);
 
-  // Exibe a navbar apenas se não estivermos na rota de cadastro
   if (location.pathname === '/funcionarios/cadastrar') return null;
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <Link className="navbar-brand" to="/">
-        <img src={logoUrl} alt="logo da empresa" style={{ width: '150px', height: '65px', marginRight: '10px' }} />
+        <img src={logoUrl} alt="logo da empresa" className='logoTaugor' />
       </Link>
       <div className="collapse navbar-collapse">
         <ul className="navbar-nav mr-auto">

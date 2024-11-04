@@ -46,7 +46,7 @@ function HistoricoFuncionario() {
         <ul>
           {historico.map((registro) => (
             <li key={registro.id}>
-              <p><strong>Data e Hora:</strong> {registro.dataHora ? new Date(registro.dataHora.seconds * 1000).toLocaleString() : "Data não disponível"}</p>
+              <p><strong>Data e Hora da ultima atualização:</strong> {registro.dataHora ? new Date(registro.dataHora.seconds * 1000).toLocaleString() : "Data não disponível"}</p>
               {registro.dadosAntigos ? (
                 <>
                   <p><strong>Dados Antigos:</strong></p>
