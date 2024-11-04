@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { db } from './firebase';
+import { db, storage } from './firebase';
 import { useNavigate } from 'react-router-dom';
 import { collection, addDoc, doc, updateDoc, getDoc } from 'firebase/firestore';
-import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import jsPDF from "jspdf";
 import { useParams } from 'react-router-dom';
 import './AtualizarFuncionario.css';
-
 
 function AtualizarFuncionario() {
   const { funcionarioId } = useParams();
@@ -32,24 +31,24 @@ function AtualizarFuncionario() {
     sobrenome: '',
     telefone: '',
   });
+  const [fotoFile, setFotoFile] = useState(null);
   const navigate = useNavigate();
 
   const gerarPDF = async () => {
     const doc = new jsPDF();
-  
+
     doc.setFontSize(16);
     doc.text(`Ficha do Funcionário: ${formData.nome} ${formData.sobrenome}`, 10, 10);
-  
+
     doc.setFontSize(12);
     Object.keys(formData).forEach((key, index) => {
       doc.text(`${key.charAt(0).toUpperCase() + key.slice(1)}: ${formData[key]}`, 10, 20 + index * 10);
     });
-  
+
     const pdfBlob = doc.output("blob");
-  
-    const storage = getStorage();
+
     const pdfRef = ref(storage, `fichasFuncionarios/${funcionarioId}.pdf`);
-  
+
     try {
       await uploadBytes(pdfRef, pdfBlob);
       alert("PDF gerado e salvo com sucesso no Firebase!");
@@ -58,8 +57,7 @@ function AtualizarFuncionario() {
       alert("Erro ao salvar o PDF: " + error.message);
     }
   };
-  
-  
+
   useEffect(() => {
     const carregarDadosFuncionario = async () => {
       if (funcionarioId) {
@@ -77,58 +75,42 @@ function AtualizarFuncionario() {
     carregarDadosFuncionario();
   }, [funcionarioId]);
 
-  if (!funcionarioId) {
-    return <div>Carregando dados do funcionário...</div>;
-  }
-
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({ ...formData, [name]: type === 'checkbox' ? checked : value });
   };
 
+  const handleFotoChange = (e) => {
+    setFotoFile(e.target.files[0]);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      let fotoPerfilURL = formData.fotoPerfil;
+
+      if (fotoFile) {
+        const fotoRef = ref(storage, `fotos/${fotoFile.name}`);
+        await uploadBytes(fotoRef, fotoFile);
+        fotoPerfilURL = await getDownloadURL(fotoRef);
+      }
+
       const funcionarioRef = doc(db, 'funcionario', funcionarioId);
-      
-      const funcionarioSnap = await getDoc(funcionarioRef);
-      const dadosAntigos = funcionarioSnap.data();
-  
-      await updateDoc(funcionarioRef, formData);
-  
+      const dadosAntigos = (await getDoc(funcionarioRef)).data();
+      const funcionarioData = { ...formData, fotoPerfil: fotoPerfilURL };
+
+      await updateDoc(funcionarioRef, funcionarioData);
+
       const historicoData = {
         funcionarioId: funcionarioRef.id,
         dadosAntigos: dadosAntigos,
-        dadosNovos: formData,
+        dadosNovos: funcionarioData,
         dataHora: new Date(),
       };
       await addDoc(collection(db, 'historico'), historicoData);
-      
+
       alert('Funcionário atualizado com sucesso!');
       navigate('/funcionarios');
-      
-      setFormData({
-        demitido: false,
-        cargo: '',
-        cpf: '',
-        dataAdmissao: '',
-        dataNascimento: '',
-        educacao: '',
-        email: '',
-        endereco: '',
-        experiencia: '',
-        fotoPerfil: '',
-        habilidades: '',
-        idiomas: '',
-        nacionalidade: '',
-        nome: '',
-        resumoPessoal: '',
-        salario: '',
-        setor: '',
-        sexo: '',
-        sobrenome: '',
-        telefone: '',
-      });
     } catch (error) {
       alert('Erro ao atualizar funcionário: ' + error.message);
     }
@@ -201,8 +183,8 @@ function AtualizarFuncionario() {
           <input type="number" name="salario" value={formData.salario} onChange={handleChange} required />
         </div>
         <div>
-          <label>Foto de Perfil (URL):</label>
-          <input type="text" name="fotoPerfil" value={formData.fotoPerfil} onChange={handleChange} />
+          <label>Foto de Perfil:</label>
+          <input type="file" onChange={handleFotoChange} />
         </div>
         <div>
           <label>Educação:</label>
