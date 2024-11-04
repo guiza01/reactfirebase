@@ -3,6 +3,8 @@ import { db } from './firebase';
 import { useNavigate } from 'react-router-dom';
 import { collection, addDoc } from 'firebase/firestore';
 import jsPDF from 'jspdf';
+import { Button } from '@mui/material';
+import HomeIcon from '@mui/icons-material/Home';
 import './CadastroFuncionario.css';
 
 function CadastroFuncionario() {
@@ -31,7 +33,7 @@ function CadastroFuncionario() {
   });
 
   const [step, setStep] = useState(0);
-  const steps = 3;
+  const totalSteps = 3;
   const folhaRef = useRef();
 
   const handleChange = (e) => {
@@ -41,7 +43,7 @@ function CadastroFuncionario() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (step === 2) {
+    if (step === totalSteps - 1) {
       try {
         const funcionarioRef = await addDoc(collection(db, 'funcionario'), formData);
         const historicoData = {
@@ -86,8 +88,6 @@ function CadastroFuncionario() {
   const nextStep = () => setStep((prevStep) => prevStep + 1);
   const prevStep = () => setStep((prevStep) => prevStep - 1);
 
-  const progressPercentage = ((step + 1) / steps) * 100;
-
   const exportPDF = () => {
     const pdf = new jsPDF('p', 'pt', 'a4');
     pdf.html(folhaRef.current, {
@@ -97,126 +97,137 @@ function CadastroFuncionario() {
     });
   };
 
+  const stepTitles = ['Informações Pessoais', 'Dados de Admissão', 'Informações Adicionais'];
+
   return (
     <div className="container">
-      <div className="main-content">
-        <div className="form-section">
-          <h3>Cadastro de Funcionário</h3>
-          <div className="progress-bar">
-            <div className="progress" style={{ width: `${progressPercentage}%` }} />
-          </div>
-          <form onSubmit={handleSubmit}>
-            {step === 0 && (
-              <>
-                <h3>Informações Pessoais</h3>
-                <div>
-                  <label>Nome</label>
-                  <input type="text" name="nome" value={formData.nome} onChange={handleChange} placeholder="ex. Fernando" required />
-                </div>
-                <div>
-                  <label>Sobrenome</label>
-                  <input type="text" name="sobrenome" value={formData.sobrenome} onChange={handleChange} placeholder="ex. Souza" required />
-                </div>
-                <div>
-                  <label>Foto de Perfil</label>
-                  <input type="text" name="fotoPerfil" value={formData.fotoPerfil} onChange={handleChange} placeholder="URL da Foto" />
-                </div>
-                <div>
-                  <label>CPF</label>
-                  <input type="text" name="cpf" value={formData.cpf} onChange={handleChange} placeholder="ex. 123.456.789-00" required />
-                </div>
-                <div>
-                  <label>Sexo</label>
-                  <select name="sexo" value={formData.sexo} onChange={handleChange} required>
-                    <option value="">Selecione</option>
-                    <option value="masculino">Masculino</option>
-                    <option value="feminino">Feminino</option>
-                    <option value="outro">Outro</option>
-                  </select>
-                </div>
-                <div>
-                  <label>Data de Nascimento</label>
-                  <input type="date" name="dataNascimento" value={formData.dataNascimento} onChange={handleChange} required />
-                </div>
-                <div className="button-container">
-                  <button type="button" onClick={nextStep} style={{ float: 'right' }}>Próximo</button>
-                </div>
-              </>
-            )}
+      <header className="header" >
+        <img src="../logoTaugor.png" alt="Logo da Empresa" className="logo" style={{ width: '150px', height: '65px', marginRight: '10px' }} />
 
-            {step === 1 && (
-              <>
-                <h3>Dados de Admissão</h3>
-                <div>
-                  <label>Data de Admissão</label>
-                  <input type="date" name="dataAdmissao" value={formData.dataAdmissao} onChange={handleChange} required />
-                </div>
-                <div>
-                  <label>Cargo</label>
-                  <input type="text" name="cargo" value={formData.cargo} onChange={handleChange} placeholder="ex. Vendedor" required />
-                </div>
-                <div>
-                  <label>Setor</label>
-                  <input type="text" name="setor" value={formData.setor} onChange={handleChange} placeholder="ex. Atendimento" required />
-                </div>
-                <div>
-                  <label>Nacionalidade</label>
-                  <input type="text" name="nacionalidade" value={formData.nacionalidade} onChange={handleChange} placeholder="ex. Brasileiro" required />
-                </div>
-                <div>
-                  <label>Endereço</label>
-                  <input type="text" name="endereco" value={formData.endereco} onChange={handleChange} placeholder="ex. Avenida Paulista, 1234" required />
-                </div>
-                <div>
-                  <label>Email</label>
-                  <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="ex. tiago.souza@email.com" required />
-                </div>
-                <div>
-                  <label>Telefone</label>
-                  <input type="tel" name="telefone" value={formData.telefone} onChange={handleChange} placeholder="ex. (11) 91234-5678" required />
-                </div>
-                <div>
-                  <label>Salário</label>
-                  <input type="number" name="salario" value={formData.salario} onChange={handleChange} placeholder="ex. 2500" required />
-                </div>
-                <div className="button-container">
-                  <button type="button" onClick={prevStep} style={{ float: 'left' }}>Anterior</button>
-                  <button type="button" onClick={nextStep} style={{ float: 'right' }}>Próximo</button>
-                </div>
-              </>
-            )}
-
-            {step === 2 && (
-              <>
-                <h3>Informações Adicionais</h3>
-                <div>
-                  <label>Educação</label>
-                  <input type="text" name="educacao" value={formData.educacao} onChange={handleChange} placeholder="ex. Merchandising de Moda" required />
-                </div>
-                <div>
-                  <label>Experiência</label>
-                  <input type="text" name="experiencia" value={formData.experiencia} onChange={handleChange} placeholder="ex. Vendedor na Louis Vuitton" required />
-                </div>
-                <div>
-                  <label>Habilidades</label>
-                  <input type="text" name="habilidades" value={formData.habilidades} onChange={handleChange} placeholder="ex. Atendimento ao Cliente" required />
-                </div>
-                <div>
-                  <label>Idiomas</label>
-                  <input type="text" name="idiomas" value={formData.idiomas} onChange={handleChange} placeholder="ex. Francês Avançado" required />
-                </div>
-                <div>
-                  <label>Resumo Pessoal</label>
-                  <textarea name="resumoPessoal" value={formData.resumoPessoal} onChange={handleChange} placeholder="Descreva seu perfil e realizações" required />
-                </div>
-                <div className="button-container">
-                  <button type="button" onClick={prevStep} style={{ float: 'left' }}>Anterior</button>
-                  <button type="submit" style={{ float: 'right' }}>Finalizar</button>
-                </div>
-              </>
-            )}
-          </form>
+        <div className="steps-container" style={{ flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginLeft: '10px' }}>
+          <span className="steps-counter">Passo {step + 1} de {totalSteps}</span>
+          <h4>{stepTitles[step]}</h4>
         </div>
+
+        <Button
+          variant="contained"
+          color="primary"
+          startIcon={<HomeIcon />}
+          onClick={() => navigate('/')}
+          style={{ marginRight: 'auto' }}
+        >
+          Home
+        </Button>
+      </header>
+
+      <div className="main-content">
+        <h3>Cadastro de Funcionário</h3>
+        <form onSubmit={handleSubmit} ref={folhaRef}>
+          {step === 0 && (
+            <>
+              <div>
+                <label>Nome</label>
+                <input type="text" name="nome" value={formData.nome} onChange={handleChange} required />
+              </div>
+              <div>
+                <label>Sobrenome</label>
+                <input type="text" name="sobrenome" value={formData.sobrenome} onChange={handleChange} required />
+              </div>
+              <div>
+                <label>Foto de Perfil</label>
+                <input type="text" name="fotoPerfil" value={formData.fotoPerfil} onChange={handleChange} placeholder="URL da Foto" />
+              </div>
+              <div>
+                <label>CPF</label>
+                <input type="text" name="cpf" value={formData.cpf} onChange={handleChange} required />
+              </div>
+              <div>
+                <label>Sexo</label>
+                <select name="sexo" value={formData.sexo} onChange={handleChange} required>
+                  <option value="">Selecione</option>
+                  <option value="masculino">Masculino</option>
+                  <option value="feminino">Feminino</option>
+                  <option value="outro">Outro</option>
+                </select>
+              </div>
+              <div>
+                <label>Data de Nascimento</label>
+                <input type="date" name="dataNascimento" value={formData.dataNascimento} onChange={handleChange} required />
+              </div>
+            </>
+          )}
+
+          {step === 1 && (
+            <>
+              <div>
+                <label>Data de Admissão</label>
+                <input type="date" name="dataAdmissao" value={formData.dataAdmissao} onChange={handleChange} required />
+              </div>
+              <div>
+                <label>Cargo</label>
+                <input type="text" name="cargo" value={formData.cargo} onChange={handleChange} required />
+              </div>
+              <div>
+                <label>Setor</label>
+                <input type="text" name="setor" value={formData.setor} onChange={handleChange} required />
+              </div>
+              <div>
+                <label>Nacionalidade</label>
+                <input type="text" name="nacionalidade" value={formData.nacionalidade} onChange={handleChange} required />
+              </div>
+              <div>
+                <label>Endereço</label>
+                <input type="text" name="endereco" value={formData.endereco} onChange={handleChange} required />
+              </div>
+              <div>
+                <label>Email</label>
+                <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+              </div>
+              <div>
+                <label>Telefone</label>
+                <input type="tel" name="telefone" value={formData.telefone} onChange={handleChange} required />
+              </div>
+              <div>
+                <label>Salário</label>
+                <input type="number" name="salario" value={formData.salario} onChange={handleChange} required />
+              </div>
+            </>
+          )}
+
+          {step === 2 && (
+            <>
+              <div>
+                <label>Educação</label>
+                <input type="text" name="educacao" value={formData.educacao} onChange={handleChange} required />
+              </div>
+              <div>
+                <label>Experiência</label>
+                <input type="text" name="experiencia" value={formData.experiencia} onChange={handleChange} required />
+              </div>
+              <div>
+                <label>Habilidades</label>
+                <input type="text" name="habilidades" value={formData.habilidades} onChange={handleChange} required />
+              </div>
+              <div>
+                <label>Idiomas</label>
+                <input type="text" name="idiomas" value={formData.idiomas} onChange={handleChange} required />
+              </div>
+              <div>
+                <label>Resumo Pessoal</label>
+                <textarea name="resumoPessoal" value={formData.resumoPessoal} onChange={handleChange} required />
+              </div>
+            </>
+          )}
+
+          <div className="button-container">
+            {step > 0 && <button type="button" onClick={prevStep}>Anterior</button>}
+            {step < totalSteps - 1 ? (
+              <button type="button" onClick={nextStep}>Próximo</button>
+            ) : (
+              <button type="submit">Finalizar</button>
+            )}
+          </div>
+        </form>
       </div>
     </div>
   );
