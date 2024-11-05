@@ -163,8 +163,7 @@ function CadastroFuncionario() {
                   name="cpf"
                   maxLength="11"
                   value={formData.cpf}
-                  onChange={handleChange}
-                  required
+                  onChange={handleChange} 
                   className="input-field"
                 />
                 <label className="input-label">CPF</label>

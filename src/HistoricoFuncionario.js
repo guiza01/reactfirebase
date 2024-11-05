@@ -38,7 +38,7 @@ function HistoricoFuncionario() {
   }, [funcionarioId]);
 
   return (
-    <div>
+    <div className="historico-container">
       <h2>Histórico do Funcionário</h2>
       {historico.length === 0 ? (
         <p>Não há histórico de alterações para este funcionário.</p>
@@ -47,24 +47,28 @@ function HistoricoFuncionario() {
           {historico.map((registro) => (
             <li key={registro.id}>
               <p><strong>Data e Hora da ultima atualização:</strong> {registro.dataHora ? new Date(registro.dataHora.seconds * 1000).toLocaleString() : "Data não disponível"}</p>
-              {registro.dadosAntigos ? (
-                <>
+              <div className="dados-container">
+                <div>
                   <p><strong>Dados Antigos:</strong></p>
                   <ul>
-                    {Object.entries(registro.dadosAntigos).map(([key, value]) => (
-                      <li key={key}><strong>{key}:</strong> {value}</li>
+                    {Object.keys(registro.dadosAntigos || {}).map((key) => (
+                      <li key={key} className={registro.dadosAntigos[key] !== registro.dadosNovos[key] ? 'campo-alterado' : ''}>
+                        <strong>{key}:</strong> {registro.dadosAntigos[key] || "N/A"}
+                      </li>
                     ))}
                   </ul>
-                </>
-              ) : (
-                <p><strong>Dados Antigos:</strong> Não disponíveis</p>
-              )}
-              <p><strong>Dados Novos:</strong></p>
-              <ul>
-                {Object.entries(registro.dadosNovos).map(([key, value]) => (
-                  <li key={key}><strong>{key}:</strong> {value}</li>
-                ))}
-              </ul>
+                </div>
+                <div>
+                  <p><strong>Dados Novos:</strong></p>
+                  <ul>
+                    {Object.keys(registro.dadosAntigos || {}).map((key) => (
+                      <li key={key} className={registro.dadosAntigos[key] !== registro.dadosNovos[key] ? 'campo-alterado' : ''}>
+                        <strong>{key}:</strong> {registro.dadosNovos[key] || "N/A"}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
             </li>
           ))}
         </ul>
